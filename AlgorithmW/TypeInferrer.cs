@@ -144,7 +144,7 @@ public class TypeInferrer
     private static Substitution ComposeSubstitutions(Substitution s1, Substitution s2)
     {
         var map = s2.Enumerate().Select(kv => (typeVar: kv.Key, type: ApplySubstitution(kv.Value, s1))).ToImmutableDictionary(x => x.typeVar, x => x.type);
-        return new Substitution(map);
+        return s1.UnionWith(new Substitution(map));
     }
 
     /// <summary>
